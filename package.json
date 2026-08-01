@@ -1,0 +1,25 @@
+{
+  "name": "hub",
+  "version": "0.1.0",
+  "description": "Le Repaire — hub / portfolio regroupant les jeux de Cerynna (notes, commentaires, bugs).",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test:rules": "firebase emulators:exec --only firestore --project le-repaire-e3652 \"node --test scripts/rules.test.mjs\"",
+    "test:functions": "firebase emulators:exec --only firestore,functions --project le-repaire-e3652 \"node --test scripts/functions.test.mjs\"",
+    "deploy": "npm run build && firebase deploy"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "firebase": "^11.1.0"
+  }
+}

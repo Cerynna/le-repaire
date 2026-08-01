@@ -1,0 +1,141 @@
+rules_version = '2';
+
+// Règles de sécurité du Repaire.
+// Phase 1 : profils joueurs (pseudo) + lecture publique des agrégats de jeux.
+// Les collections communautaires (ratings, comments, bugs) et leurs agrégats
+// arriveront aux phases suivantes, écrits/recalculés côté backend (Admin SDK).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // pseudo « sûr » : 1→16 caractères — lettres (toutes langues), marques, chiffres, espace
+    // et ' . _ - . Bloque contrôle, bidi et invisibles (usurpation visuelle, injection).
+    function pseudoValide(p) {
+      return p is string
+        && p.size() >= 1 && p.size() <= 16
+        && p.matches("^[\\p{L}\\p{M}\\p{N} '._-]+$");
+    }
+
+    // pseudo OFFICIEL du joueur : son profil est la seule source de vérité
+    // (empêche d'usurper le pseudo d'un autre dans un commentaire).
+    function pseudoDuProfil() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.pseudo;
+    }
+
+    // Administrateur (Cerynna) : claim custom `admin` posé côté backend.
+    // `.get('admin', false)` évite une erreur d'évaluation quand le claim est
+    // absent (renvoie proprement false au lieu de faire échouer l'expression,
+    // ce qui compte quand isAdmin() est à gauche d'un `||`).
+    function isAdmin() {
+      return request.auth != null && request.auth.token.get('admin', false) == true;
+    }
+
+    // Jeux connus du catalogue. ⚠️ À GARDER SYNCHRO avec src/games.ts : refuse
+    // toute écriture (note/commentaire) sous un gameId inexistant, AVANT même
+    // que la moindre Cloud Function ne soit invoquée (anti-docs-orphelins /
+    // anti-amplification de coût). NB : ne limite pas le flooding sous un vrai
+    // jeu par un compte connecté — pour ça, activer Firebase App Check.
+    function isKnownGame(gameId) {
+      return gameId in ['elan', 'flux'];
+    }
+
+    // Profil joueur : source de vérité du pseudo affiché dans les commentaires/bugs.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['pseudo'])
+        && pseudoValide(request.resource.data.pseudo);
+
+      allow update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pseudo'])
+        && pseudoValide(request.resource.data.pseudo);
+
+      allow delete: if false;
+    }
+
+    // Agrégats publics d'un jeu (moyenne des notes, compteurs) : lecture pour tous,
+    // écriture réservée au backend (Admin SDK, qui recalcule via Cloud Function).
+    match /games/{gameId} {
+      allow read: if true;
+      allow write: if false;
+
+      // Note d'un joueur : un doc par joueur (id == uid → une seule note par personne,
+      // propriété prouvée par l'ID, comme les scores d'Élan). Amélioration ou changement
+      // libre de sa propre note ; jamais celle d'un autre.
+      match /ratings/{uid} {
+        allow read: if request.auth != null && uid == request.auth.uid;
+
+        allow create, update: if request.auth != null
+          && isKnownGame(gameId)
+          && uid == request.auth.uid
+          && request.resource.data.keys().hasOnly(['value', 'ts'])
+          && request.resource.data.value is int
+          && request.resource.data.value >= 1
+          && request.resource.data.value <= 5
+          && request.resource.data.ts == request.time;
+
+        allow delete: if request.auth != null && uid == request.auth.uid;
+      }
+
+      // Commentaires : lecture publique (même déconnecté), création par l'auteur
+      // connecté avec SON pseudo officiel, texte borné, horodatage serveur.
+      // Pas de modification (évite l'édition abusive) ; suppression par l'auteur
+      // ou l'admin. `list` borné pour empêcher le moissonnage.
+      match /comments/{commentId} {
+        allow get: if true;
+        allow list: if request.query.limit != null && request.query.limit <= 100;
+
+        allow create: if request.auth != null
+          && isKnownGame(gameId)
+          && request.resource.data.keys().hasOnly(['uid', 'pseudo', 'text', 'ts'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.pseudo == pseudoDuProfil()
+          && request.resource.data.text is string
+          && request.resource.data.text.size() >= 1
+          && request.resource.data.text.size() <= 500
+          && request.resource.data.ts == request.time;
+
+        allow update: if false;
+
+        allow delete: if request.auth != null
+          && (resource.data.uid == request.auth.uid || isAdmin());
+      }
+
+      // Signalements de bugs : NON publics. L'auteur voit/gère les siens ;
+      // l'admin (Cerynna) voit tout et fait le triage (change le statut).
+      // Pour lister, un non-admin DOIT filtrer sur uid == le sien (Firestore
+      // n'autorise la requête que si la règle prouve que tous les docs renvoyés
+      // sont lisibles) ; l'admin passe par isAdmin().
+      match /bugs/{bugId} {
+        allow get: if request.auth != null
+          && (resource.data.uid == request.auth.uid || isAdmin());
+
+        allow list: if request.auth != null
+          && request.query.limit != null && request.query.limit <= 100
+          && (isAdmin() || resource.data.uid == request.auth.uid);
+
+        allow create: if request.auth != null
+          && isKnownGame(gameId)
+          && request.resource.data.keys().hasOnly(['uid', 'pseudo', 'title', 'description', 'status', 'ts'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.pseudo == pseudoDuProfil()
+          && request.resource.data.title is string
+          && request.resource.data.title.size() >= 1
+          && request.resource.data.title.size() <= 100
+          && request.resource.data.description is string
+          && request.resource.data.description.size() >= 1
+          && request.resource.data.description.size() <= 2000
+          && request.resource.data.status == 'open'
+          && request.resource.data.ts == request.time;
+
+        // Triage : seul l'admin modifie, et UNIQUEMENT le champ status.
+        allow update: if isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+          && request.resource.data.status in ['open', 'in_progress', 'resolved', 'wontfix'];
+
+        allow delete: if request.auth != null
+          && (resource.data.uid == request.auth.uid || isAdmin());
+      }
+    }
+  }
+}

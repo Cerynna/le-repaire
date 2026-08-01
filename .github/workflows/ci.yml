@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # L'émulateur Firestore tourne sur la JVM.
+      - name: Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Dépendances (app)
+        run: npm ci
+
+      - name: Dépendances (functions)
+        run: npm ci --prefix functions
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Règles Firestore des 4 phases (émulateur).
+      - name: Tests de règles
+        run: npm run test:rules
+
+      # Agrégats via Cloud Functions (émulateur firestore + functions).
+      - name: Tests de fonctions
+        run: npm run test:functions
