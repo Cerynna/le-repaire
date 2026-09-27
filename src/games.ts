@@ -23,6 +23,7 @@ export const games: Game[] = [
     description:
       "Un casse-tête de logique à la Queens sur le thème des pirates : une carte découpée en îles où il faut enterrer un coffre par île, par ligne et par colonne, jamais deux côte à côte. Mode infini de plus en plus dur, trois cœurs par niveau et une roue de fortune tous les dix paliers qui distribue longue-vue, carte au trésor et rhum. Habillage SVG dessiné main, sons synthétisés et sauvegarde locale.",
     url: "https://doublons-jeu.web.app",
+    cover: "/covers/doublons.png",
     accent: "#e0a94e",
     tags: ["casse-tête","pirates","logique"],
     status: "live",
@@ -46,6 +47,7 @@ export const games: Game[] = [
     description:
       "Un roguelite de capture sur damier 3×3 : cinq cartes en main, neuf cases et une échelle de cinq adversaires qu'il faut renverser sans perdre. Le moteur enchaîne capture simple, Accord, Somme et Cascade, avec un deck retouchable entre les combats et deux cartes de butin par victoire. Univers cosmique et cyber, cartes sans illustration qui se lisent à leurs valeurs et à leur rareté.",
     url: "https://emprise-jeu.web.app",
+    cover: "/covers/emprise.png",
     accent: "#7c5cff",
     tags: ["cartes","roguelite","duel"],
     status: "live",
@@ -57,6 +59,7 @@ export const games: Game[] = [
     description:
       "Un deckbuilder de dés où ton deck, ce sont les faces de tes cinq dés : lance-les pour atteindre une cible qui grimpe à chaque manche, puis colle de nouvelles faces entre les manches. La résolution se joue de gauche à droite avec des effets de voisinage (recopies, re-déclenchements) et une mise en scène très juicy à la Balatro. Une run du jour, un mutateur quotidien et un classement complètent le tout.",
     url: "https://facettes-jeu.web.app",
+    cover: "/covers/facettes.png",
     accent: "#ff4fa0",
     tags: ["roguelite","dés","quotidien"],
     status: "live",
@@ -68,6 +71,7 @@ export const games: Game[] = [
     description:
       "Lane-defense minimaliste où tu ne fais que trois gestes : piocher une tour (draft roguelite), la poser sur une voie et fusionner deux tours identiques pour monter en puissance. Des vagues géométriques déferlent sans fin sur cinq voies, avec son procédural et leaderboard mondial.",
     url: "https://flux-jeu.web.app",
+    cover: "/covers/flux.png",
     accent: "#4c7cff",
     tags: ["tower-defense","roguelite","minimaliste"],
     status: "live",
@@ -79,6 +83,7 @@ export const games: Game[] = [
     description:
       "Un survivor-like plein de charentaises où Mamie Ginette défend son lotissement contre des hordes de démarcheurs, de pigeons et d'influenceurs. On enchaîne les vagues à coups de sac à main, de dentier et d'armes improbables, on ramasse des passifs et on passe à la boutique entre deux assauts. Personnages, défis, mode sans fin et classements en ligne sont de la partie.",
     url: "https://mamie-bastonne.web.app",
+    cover: "/covers/mamie-bastonne.webp",
     accent: "#7a3fa8",
     tags: ["survivor-like","humour","vagues"],
     status: "live",
@@ -90,6 +95,7 @@ export const games: Game[] = [
     description:
       "Posez des symboles sur un anneau de 12 cases : un curseur le parcourt en continu et active chaque symbole à son passage, pendant que les ennemis convergent et brisent les cases. Vous ne touchez à rien pendant une vague — la machine se bat seule, toutes les décisions se prennent entre les vagues. L'adjacence est temporelle : le même build dans un autre ordre donne un tout autre résultat.",
     url: "https://orbite-jeu.web.app",
+    cover: "/covers/orbite.png",
     accent: "#3df2ff",
     tags: ["roguelite","quotidien","stratégie"],
     status: "live",
@@ -101,6 +107,7 @@ export const games: Game[] = [
     description:
       "RPG rogue-lite au tour par tour, dark fantasy parodique et très drôle façon World of Warcraft. Un héros descend les dix étages des Profondeurs de Rochemolle jusqu'au Seigneur du Feu réveillé trop tôt. Tu meurs, tu gardes tout — niveau, objets, or — et tu y retournes.",
     url: "https://profondeurs-jeu.web.app",
+    cover: "/covers/profondeurs.png",
     accent: "#d9531e",
     tags: ["rogue-lite","rpg","tour par tour"],
     status: "live",
@@ -112,6 +119,7 @@ export const games: Game[] = [
     description:
       "Jeu de gestion en roguelite où tu fais grossir ton business, du placard de ton studio jusqu'au cartel mondial. Chaque run passe (souvent) par la case prison, et tu jongles entre téléphone, Bon Plan et carnet d'adresses au rythme que tu choisis. Pause, vitesse x1/x2/x3 : tout se pilote au clavier.",
     url: "https://recidive-jeu.web.app",
+    cover: "/covers/recidive.jpg",
     accent: "#6ab04c",
     tags: ["gestion","roguelite","humour"],
     status: "live",
@@ -123,6 +131,7 @@ export const games: Game[] = [
     description:
       "Chaque jour, la même disposition de points pour tous : trace la boucle fermée la plus courte qui les relie tous (problème du voyageur de commerce) et obtiens ton pourcentage d'efficacité face à l'optimum mathématique exact. Trois essais par difficulté, campagne remontant le temps depuis 1950, classements en ligne et dix langues, le tout en PWA installable.",
     url: "https://trace-5e6d3.web.app",
+    cover: "/covers/trace.png",
     accent: "#2dd4bf",
     tags: ["puzzle","quotidien","classement"],
     status: "live",
