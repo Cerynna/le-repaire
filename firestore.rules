@@ -35,7 +35,11 @@ service cloud.firestore {
     // anti-amplification de coût). NB : ne limite pas le flooding sous un vrai
     // jeu par un compte connecté — pour ça, activer Firebase App Check.
     function isKnownGame(gameId) {
-      return gameId in ['elan', 'flux'];
+      return gameId in [
+        'catane', 'doublons', 'elan', 'emprise', 'facettes', 'flux',
+        'mamie-bastonne', 'orbite', 'profondeurs', 'recidive', 'trace',
+        'butin', 'ossuaire', 'perihelie'
+      ];
     }
 
     // Profil joueur : source de vérité du pseudo affiché dans les commentaires/bugs.

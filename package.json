@@ -12,10 +12,12 @@
     "typecheck": "tsc --noEmit",
     "test:rules": "firebase emulators:exec --only firestore --project le-repaire-e3652 \"node --test scripts/rules.test.mjs\"",
     "test:functions": "firebase emulators:exec --only firestore,functions --project le-repaire-e3652 \"node --test scripts/functions.test.mjs\"",
+    "set-admin": "node scripts/set-admin.mjs",
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^4.0.1",
+    "firebase-admin": "^14.2.0",
     "typescript": "^5.7.2",
     "vite": "^6.0.0"
   },

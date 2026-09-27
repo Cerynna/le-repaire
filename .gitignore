@@ -5,3 +5,9 @@ dist
 .env
 .env.local
 .DS_Store
+
+# Clés de service Firebase / Google — NE JAMAIS committer (secret puissant)
+*serviceAccount*.json
+service-account*.json
+*-firebase-adminsdk-*.json
+gcloud-*.json
