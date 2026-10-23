@@ -16,6 +16,12 @@ export function renderGame(view: HTMLElement, id: string): void | (() => void) {
     return;
   }
 
+  // Jeux pas encore déployés : cachés pour l'instant, fiche inaccessible.
+  if (g.status !== 'live') {
+    navigate('/');
+    return;
+  }
+
   setMeta(pageTitle(g.title), g.tagline);
 
   view.innerHTML = `

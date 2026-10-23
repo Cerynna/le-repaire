@@ -12,13 +12,18 @@ const STATUS_LABEL: Record<Game['status'], string> = {
 
 export function renderHome(view: HTMLElement): void {
   setMeta(pageTitle(), 'Les petits jeux de Cerynna. Joue, note, commente — et signale les bugs.');
+
+  // On n'affiche que les jeux en ligne ; les 'wip' (en chantier) restent cachés
+  // tant qu'ils ne sont pas déployés.
+  const visible = games.filter((g) => g.status === 'live');
+
   view.innerHTML = `
     <section class="hero">
       <h1>Le Repaire</h1>
       <p class="lede">Les petits jeux de Cerynna. Joue, note, commente — et signale-moi les bugs.</p>
     </section>
     <section class="grid">
-      ${games.map(card).join('')}
+      ${visible.map(card).join('')}
     </section>`;
 
   // Si un fichier de cover est absent/cassé, on retire l'image et le glyphe
@@ -28,7 +33,7 @@ export function renderHome(view: HTMLElement): void {
   });
 
   // Les stats se chargent en asynchrone, sans bloquer l'affichage des cartes.
-  for (const g of games) {
+  for (const g of visible) {
     getGameStats(g.id).then((s) => {
       const el = view.querySelector(`#stats-${g.id}`);
       if (!el) return;

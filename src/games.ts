@@ -12,6 +12,7 @@ export const games: Game[] = [
     description:
       "Adaptation web du celebre jeu de societe, avec les regles completes du jeu de base : ressources, routes, colonies, villes, voleur, cartes developpement et ports. De 2 a 4 joueurs, sur un meme ecran ou en ligne via un code a 4 lettres synchronise en temps reel.",
     url: "https://catane-19b35.web.app",
+    cover: "/covers/catane.jpg",
     accent: "#e8a33d",
     tags: ["societe","multijoueur","famille"],
     status: "live",
@@ -59,6 +60,7 @@ export const games: Game[] = [
     description:
       "Un casse-tête d'aquarelle à solution unique : on pose des gouttes d'encre rouge, bleue et jaune, puis on verse, et toutes s'étalent en même temps pour reproduire exactement le modèle. Deux couleurs qui se rejoignent forment un mélange qui cesse de s'étendre, et c'est l'indice principal pour déduire le bon placement. Niveaux infinis de plus en plus durs, avec un classement en ligne.",
     url: "https://encre-jeu.web.app",
+    cover: "/covers/encre.jpg",
     accent: "#a855f7",
     tags: ["casse-tête","couleurs","classement"],
     status: "live",
