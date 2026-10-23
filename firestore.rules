@@ -36,9 +36,11 @@ service cloud.firestore {
     // jeu par un compte connecté — pour ça, activer Firebase App Check.
     function isKnownGame(gameId) {
       return gameId in [
-        'catane', 'doublons', 'elan', 'emprise', 'facettes', 'flux',
-        'mamie-bastonne', 'orbite', 'profondeurs', 'recidive', 'trace',
-        'butin', 'ossuaire', 'perihelie'
+        'catane', 'doublons', 'elan', 'emprise', 'encre', 'facettes', 'flux',
+        'mamie-bastonne', 'orbite', 'petanque-apocalypse', 'profondeurs',
+        'recidive', 'retraite-active', 'trace', 'butin', 'contrepoids',
+        'fouille', 'frole', 'le-casse', 'aldoria', 'octet', 'ossuaire',
+        'perihelie', 'releve'
       ];
     }
 
