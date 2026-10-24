@@ -18,6 +18,18 @@ export const games: Game[] = [
     status: "live",
   },
   {
+    id: "contrepoids",
+    title: "Contrepoids",
+    tagline: "Un 2048 où tu ne choisis pas le sens : tu poses le poids, le plateau penche.",
+    description:
+      "Un 2048 où l'on ne choisit jamais la direction : on pose la tuile, et c'est son poids qui fait pencher le plateau du côté où tout va glisser et fusionner. Les grosses tuiles tirent le point d'équilibre vers elles, ce qui dicte le prochain mouvement. Thème de poids de balance en laiton sur un plateau de bois.",
+    url: "https://contrepoids-jeu.web.app",
+    cover: "/covers/contrepoids.jpg",
+    accent: "#e9c46a",
+    tags: ["puzzle","2048","réflexion"],
+    status: "live",
+  },
+  {
     id: "doublons",
     title: "Doublons",
     tagline: "Un coffre par ile, par ligne et par colonne, et jamais deux qui se touchent.",
@@ -87,6 +99,18 @@ export const games: Game[] = [
     cover: "/covers/flux.png",
     accent: "#4c7cff",
     tags: ["tower-defense","roguelite","fusion"],
+    status: "live",
+  },
+  {
+    id: "le-casse",
+    title: "Le Casse",
+    tagline: "Chaque nuit, cambriolez la même maison ; le matin, démasquez les casses des autres.",
+    description:
+      "Jeu de déduction asynchrone quotidien : chaque nuit, tout le monde cambriole la même maison, en sachant exactement quelles traces chaque geste laisse. Le matin, on enquête sur les casses des autres pour retrouver par où ils sont entrés, sortis et quelles pièces ils ont traversées, pendant que Mme Michu, insomniaque, note tout dans son carnet. Chaque joueur fabrique ainsi le piège des autres.",
+    url: "https://le-casse-jeu.web.app",
+    cover: "/covers/le-casse.jpg",
+    accent: "#ffc247",
+    tags: ["déduction","enquête","quotidien"],
     status: "live",
   },
   {
@@ -185,17 +209,6 @@ export const games: Game[] = [
     status: "wip",
   },
   {
-    id: "contrepoids",
-    title: "Contrepoids",
-    tagline: "Un 2048 où tu ne choisis pas le sens : tu poses le poids, le plateau penche.",
-    description:
-      "Un 2048 où l'on ne choisit jamais la direction : on pose la tuile, et c'est son poids qui fait pencher le plateau du côté où tout va glisser et fusionner. Les grosses tuiles tirent le point d'équilibre vers elles, ce qui dicte le prochain mouvement. Thème de poids de balance en laiton sur un plateau de bois.",
-    url: "",
-    accent: "#e9c46a",
-    tags: ["puzzle","2048","réflexion"],
-    status: "wip",
-  },
-  {
     id: "fouille",
     title: "Fouille",
     tagline: "Démineur-RPG dans la tombe du pharaon : abats les monstres, terrasse Toutankhanon.",
@@ -215,17 +228,6 @@ export const games: Game[] = [
     url: "",
     accent: "#ff4de1",
     tags: ["arcade","néon","réflexes"],
-    status: "wip",
-  },
-  {
-    id: "le-casse",
-    title: "Le Casse",
-    tagline: "Chaque nuit, cambriolez la même maison ; le matin, démasquez les casses des autres.",
-    description:
-      "Jeu de déduction asynchrone quotidien : chaque nuit, tout le monde cambriole la même maison, en sachant exactement quelles traces chaque geste laisse. Le matin, on enquête sur les casses des autres pour retrouver par où ils sont entrés, sortis et quelles pièces ils ont traversées, pendant que Mme Michu, insomniaque, note tout dans son carnet. Chaque joueur fabrique ainsi le piège des autres.",
-    url: "",
-    accent: "#ffc247",
-    tags: ["déduction","enquête","quotidien"],
     status: "wip",
   },
   {
