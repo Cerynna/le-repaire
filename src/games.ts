@@ -150,6 +150,18 @@ export const games: Game[] = [
     status: "live",
   },
   {
+    id: "petition",
+    title: "Pétition",
+    tagline: "Une feuille contre un nid-de-poule. Ça ne peut pas dégénérer.",
+    description:
+      "Un incrémental qui commence par une pétition de quartier contre le trou de la rue des Lilas et finit par faire signer l'univers observable. On recrute des bénévoles, on achète de l'encre, on fonde un ministère, puis on lâche un essaim d'émissaires en papier plié sur les galaxies. Cinq échelles, cinq habillages, et le trou rebouché au dernier écran.",
+    url: "https://petition-jeu.web.app",
+    cover: "/covers/petition.jpg",
+    accent: "#8b6fd4",
+    tags: ["incrémental","clicker","absurde"],
+    status: "live",
+  },
+  {
     id: "profondeurs",
     title: "Profondeurs",
     tagline: "Un héros, dix étages, un Seigneur du Feu réveillé trop tôt.",

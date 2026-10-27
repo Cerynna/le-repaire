@@ -40,7 +40,7 @@ service cloud.firestore {
         'mamie-bastonne', 'orbite', 'petanque-apocalypse', 'profondeurs',
         'recidive', 'retraite-active', 'trace', 'butin', 'contrepoids',
         'fouille', 'frole', 'le-casse', 'aldoria', 'octet', 'ossuaire',
-        'perihelie', 'releve'
+        'perihelie', 'releve', 'petition'
       ];
     }
 
